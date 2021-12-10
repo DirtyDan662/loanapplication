@@ -16,6 +16,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.sql.DataSource;
+import javax.validation.Valid;
 
 /**
  *
@@ -27,7 +28,7 @@ public class EmploymentDao {
     @Resource(mappedName = "java:/PostgresDS")
     DataSource dataSource;
 
-    public void saveEmployment(Employment employment, long borrowerId) {
+    public void saveEmployment(@Valid Employment employment, long borrowerId) {
         String insertSmt = "INSERT INTO public.employment (employername, employerphone, enddate, startdate, borrower_id)";
         String values = "VALUES( (?), (?), (?), (?), (?) );";
 

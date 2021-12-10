@@ -23,12 +23,26 @@ public class Borrower{
     @NotNull
     private String firstName, lastName, address, city, state, relationship;
 
-    @NotNull
+    
     @Min(Borrower.AGE_OF_MATURITY)
     private int age;
+ 
+    private int zip, ssn;
 
-    @NotNull
-    private int zip,ssn;
+    public Borrower(Long id, String firstName, String lastName, String address, String city, String state, String relationship, int age, int zip, int ssn, List<Employment> employments) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.relationship = relationship;
+        this.age = age;
+        this.zip = zip;
+        this.ssn = ssn;
+        this.employments = employments;
+    }
+    
 
     List<Employment> employments;
 

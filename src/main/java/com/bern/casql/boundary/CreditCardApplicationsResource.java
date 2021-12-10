@@ -25,28 +25,15 @@ public class CreditCardApplicationsResource {
 
     @Inject
     CreditCardApplicationDao manager;
-    
-    
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createNewApplication(CreditCardApplication creditCardApplication) {
-        
 
-       BaseApplicationModel newApplication = manager.saveApplication(creditCardApplication);
-        
-        if(newApplication == null){
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(ResponseBody.errorMessage(new String[]{"this is not a valid customer"}))
-                    .build();
-        }
+        BaseApplicationModel newApplication = manager.saveApplication(creditCardApplication);
         return Response.ok().entity(ResponseBody.successMessage()).build();
-        
-    }
-    
-    
-    
-}
-    
 
+    }
+
+}

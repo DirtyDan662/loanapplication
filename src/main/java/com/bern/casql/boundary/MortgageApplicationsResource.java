@@ -32,12 +32,6 @@ public class MortgageApplicationsResource {
     public Response createNewApplication(MortgageApplication mortgageApplication) {
 
         BaseApplicationModel newApplication = manager.saveApplication(mortgageApplication);
-
-        if (newApplication == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(ResponseBody.errorMessage(new String[]{"this is not a valid customer"}))
-                    .build();
-        }
         return Response.ok().entity(ResponseBody.successMessage()).build();
     }
 }

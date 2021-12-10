@@ -119,7 +119,6 @@ public class BaseApplicationDao extends ModelApplicationDao {
                     applicationType = resultSet.getString("application_type");
                 }
             }
-            conn.close();
             return applicationType;
         }catch (SQLException ex) {
             throw new RuntimeException("SqlException", ex);

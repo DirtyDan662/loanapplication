@@ -31,7 +31,6 @@ public class MortgageApplicationDao extends ModelApplicationDao {
 
     public BaseApplicationModel saveApplication(@Valid MortgageApplication newApplication) {
         String query = "INSERT INTO" + TABLE_NAME + " (lengthofmortgageyears, loanamount, mortgagetype)";
-        //String values = "VALUES ( " + newApplication.getLengthOfMortgageYears() + ", " + newApplication.getLoanAmount() + ", '" + newApplication.getMortgageType() + "' )";
         String values = "VALUES( (?), (?), (?) )";
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement update = conn.prepareStatement(query + values)) {

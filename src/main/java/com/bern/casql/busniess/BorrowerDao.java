@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.sql.DataSource;
+import javax.validation.Valid;
 
 /**
  *
@@ -31,7 +32,7 @@ public class BorrowerDao {
     @Inject
     private EmploymentDao employmentManager;
 
-    public long saveBorrower(Borrower borrower) {
+    public long saveBorrower(@Valid Borrower borrower) {
         String insertSmt = "INSERT INTO public.borrower (firstname, lastname, relationship, ssn, address, city, state, zip, age)";
         String values = "VALUES( (?), (?), (?), (?), (?), (?), (?), (?), (?) );";
 
@@ -50,18 +51,20 @@ public class BorrowerDao {
             statement.setInt(8, borrower.getZip());
             statement.setInt(9, borrower.getAge());
 
+            //ssn marked unique in database
+            //if post existing ssn, throw ex here
             statement.executeUpdate();
             
-            //if borrower already exists, employments won't save
+            
             borrowerId = fetchBorrowerIdBySSN(borrower.getSsn());
             
-            
+
             for (Employment employment : borrower.getEmployment()) {
                 employmentManager.saveEmployment(employment, borrowerId);
             }
 
         } catch (SQLException ex) {
-            //if borrower already exists in db, return id;
+            //if borrower already exists in db, return existing id;
             borrowerId = fetchBorrowerIdBySSN(borrower.getSsn());
         }
 
